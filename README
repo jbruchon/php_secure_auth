@@ -11,5 +11,8 @@ improves the security beyond the tired old "MD5 hash it and stick it in the
 database" tutorials all over the place. (MD5 is bad, kids, and CSRF is an
 underappreciated way to ruin your day.)
 
+I can't guarantee this is actually secure. You need to review the code and
+check for yourself. Don't blindly trust my code.
+
 Please report bugs to me and I'll fix them as fast as I can. I hope this
 code is helpful to you! If so, feel free to let me know. ;-)
