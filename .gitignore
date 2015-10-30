@@ -1,0 +1,13 @@
+#
+# Never ignore these
+#
+!.gitignore
+
+#
+# Backups / patches
+#
+*~
+*.orig
+*.rej
+/*.patch
+
