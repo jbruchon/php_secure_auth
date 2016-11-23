@@ -1,14 +1,8 @@
 <?php
 
-/*
- * Login page
- *
- * This code is part of PHP Secure Auth
- * Copyright (C) 2015 by Jody Bruchon <jody@jodybruchon.com>
- * Distributed under the terms of The MIT License.
- */
+// A minimal example login page
 
-include_once("header.php");
+require_once("phpsa_header.php");
 
 // After login, redirect to where the user wanted to go
 if (array_key_exists("uri", $_REQUEST)) {
