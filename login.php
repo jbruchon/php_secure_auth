@@ -16,8 +16,8 @@ if (array_key_exists("uri", $_REQUEST)) {
 
 <?php
 if ($_GET['fail'] == "lockout") {
-	print "<p>Too many login attempts. Please try again later.</p>\n";
-	print "<p><a href=\"login.php\">Click here to retry.</a></p>\n";
+	echo "<p>Too many login attempts. Please try again later.</p>\n";
+	echo "<p><a href=\"login.php\">Click here to retry.</a></p>\n";
 	exit;
 }
 ?>
@@ -39,13 +39,13 @@ if ($_GET['fail'] == "lockout") {
 if (isset($_GET['fail'])) {
 	switch ($_GET['fail']) {
 	case "blank":
-		print "<p>Username and password must not be blank.</p>\n";
+		echo "<p>Username and password must not be blank.</p>\n";
 		break;
 	case "invalid":
-		print "<p>Incorrect user name or password.</p>\n";
+		echo "<p>Incorrect user name or password.</p>\n";
 		break;
 	default:
-		print "<p>Unspecified login failure occurred.</p>\n";
+		echo "<p>Unspecified login failure occurred.</p>\n";
 		break;
 	}
 }

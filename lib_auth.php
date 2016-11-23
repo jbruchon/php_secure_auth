@@ -162,14 +162,14 @@ function auth_lockout($expire_secs = NULL, $network_address = NULL, $username = 
 	if ($username != NULL && strlen($username) > 2) {
 		// User blocks don't store network addresses
 		$na = "";
-		//print "sql with params: $username, $na, $create_time, $expire_time<br>\n";
+		//echo "sql with params: $username, $na, $create_time, $expire_time<br>\n";
 		if ($stmt->execute() == FALSE) return -3;
 	}
 
 	// Both types will add an IP block
 	$username = NULL;
 	$na = $network_address;
-	//print "sql with params: $username, $na, $create_time, $expire_time<br>\n";
+	//echo "sql with params: $username, $na, $create_time, $expire_time<br>\n";
 	if ($stmt->execute() == FALSE) return -4;
 
 	return 1;
@@ -300,7 +300,7 @@ function generate_token()
 	$x = mt_rand().microtime().mt_rand().microtime();
 	//$x .= (mt_rand(0, 65535) << 11 + mt_rand(0, 65535) >> 9).mt_rand();
 	$hash = hash($auth_settings['token_hash_type'], $x, TRUE);
-	//print strlen(hash($auth_settings['token_hash_type'], $x))." ".strlen(base64_encode($hash))."<br>";
+	//echo strlen(hash($auth_settings['token_hash_type'], $x))." ".strlen(base64_encode($hash))."<br>";
 
 	return substr(base64_encode($hash), 0, $auth_settings['token_length']);
 }
@@ -447,7 +447,7 @@ function do_login($username = NULL, $password = NULL, $force_login = FALSE)
 	if ($force_login != TRUE) {
 		$login_id = session_key_to_login_id($session_key);
 		if ($login_id !== FALSE) {
-			//print "Session detected!\n<br>";
+			//echo "Session detected!\n<br>";
 			return $login_id;
 		}
 	} else {
@@ -484,6 +484,6 @@ function do_login($username = NULL, $password = NULL, $force_login = FALSE)
 
 //do_login();
 
-//print "\n<br>". (microtime(TRUE) - $time_start);
+//echo "\n<br>". (microtime(TRUE) - $time_start);
 
 ?>
