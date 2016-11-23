@@ -4,7 +4,7 @@
  * User management and authentication functions library
  *
  * This code is part of PHP Secure Auth
- * Copyright (C) 2015 by Jody Bruchon <jody@jodybruchon.com>
+ * Copyright (C) 2015-2016 by Jody Bruchon <jody@jodybruchon.com>
  * Distributed under the terms of The MIT License.
  */
 
@@ -14,8 +14,10 @@ $time_start = microtime(TRUE);
 require_once('config.php');
 require_once('db_connect.php');
 
-// Default lib_authconfiguration settings
+// Default lib_auth configuration settings
 $auth_settings = array(
+// Maximum login attempts before lockout
+"cookie_name" => 'php_sa_session',
 // Maximum login attempts before lockout
 "lockout_max" => 5,
 // Default login/lockout session expiration time (seconds)
@@ -38,7 +40,7 @@ function set_auth_cookie($session_key, $expire_time = NULL, $domain = NULL)
 
 	$secure = "";
 	if ($_SERVER['HTTPS'] != "" && $_SERVER['HTTPS'] != "off") $secure = TRUE;
-	return setcookie("php_sa_session", $session_key,
+	return setcookie($auth_settings['cookie_name'], $session_key,
 		$expire_time, NULL, NULL, $secure, TRUE);
 }
 
@@ -215,6 +217,7 @@ function get_session_config($session_key)
 
 
 // Destroy a specific session associated with a session key
+// Also cleans out any expired sessions
 function destroy_session($session_key)
 {
 	global $dbconn;
@@ -309,7 +312,15 @@ function update_login_entry($username, $password, $friendlyname = "")
 {
 	global $dbconn;
 
+	// Ignore extraneous spaces in the user name (thanks, phone keyboards)
 	$username = trim($username);
+
+	// Block creating an empty username or password
+	if (empty($username) || empty($password)) {
+		echo "Error: attempt to use an empty username or password";
+		return FALSE;
+	}
+
 	$p_hash = password_hash($password, PASSWORD_DEFAULT);
 
 	$sql = "INSERT INTO logins (username, active, password_hash, friendly_name)
@@ -429,7 +440,7 @@ function do_login($username = NULL, $password = NULL, $force_login = FALSE)
 	global $auth_settings;
 
 	destroy_expired_sessions();
-	$session_key = $_COOKIE['php_sa_session'];
+	$session_key = $_COOKIE[$auth_settings['cookie_name']];
 	$username = trim($username);
 
 	// Check for session if forced login not specified
