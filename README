@@ -11,6 +11,12 @@ improves the security beyond the tired old "MD5 hash it and stick it in the
 database" tutorials all over the place. (MD5 is bad, kids, and CSRF is an
 underappreciated way to ruin your day.)
 
+Use the SQL code in setup_database.sql to set up the login and sessions
+tables, then uncomment the command in letmein.php and execute it via the
+browser to create a user account 'admin' with password 'password'. You
+should immediately comment the command back out after doing so, or anyone
+can run letmein.php to reset your admin password.
+
 I can't guarantee this is actually secure. You need to review the code and
 check for yourself. Don't blindly trust my code.
 
