@@ -39,16 +39,17 @@ if ($auth < 0) {
 
 // Debugging stuff
 /*
-print "<pre>GET\n";
+echo "<pre>GET\n";
 var_dump($_GET);
-print "\nPOST\n";
+echo "\nPOST\n";
 var_dump($_POST);
-print "\nCOOKIE\n";
+echo "\nCOOKIE\n";
 var_dump($_COOKIE);
-print "\n\n$auth\n";
+echo "\n\n$auth\n";
  */
 
-require_once('validate_session.php');
+$validated = TRUE;
+require("validate_session.php");
 // Fall through to the index page
 header("Location: index.php");
 

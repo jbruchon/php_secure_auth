@@ -5,7 +5,7 @@
 require_once('lib_auth.php');
 
 $uri = $_SERVER['REQUEST_URI'];
-$validated = FALSE;
+if ($validated != TRUE) $validated = FALSE;
 if (array_key_exists("uri", $_REQUEST)) $r_uri = $_REQUEST['uri'];
 else $r_uri = "index.php";
 
